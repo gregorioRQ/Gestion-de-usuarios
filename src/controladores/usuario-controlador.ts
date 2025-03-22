@@ -25,6 +25,31 @@ router.get("/:id", async (req: Request, res: Response) => {
   }
 });
 
+router.put("/:id", async (req: Request, res: Response) => {
+  const actualizado: boolean = await usuariosServicio.actualizarUsuario(
+    parseInt(req.params.id),
+    req.body
+  );
+  if (actualizado) {
+    res.send("Usuario actualizado");
+  } else {
+    res.send("Usuario no encontrado");
+  }
+});
+
+router.patch("/id:", async (req: Request, res: Response) => {
+  const actualizadoParcial: boolean =
+    await usuariosServicio.actualizarUsuariopParcial(
+      parseInt(req.params.id),
+      req.body
+    );
+  if (actualizadoParcial) {
+    res.sendStatus(204);
+  } else {
+    res.status(404).send("Usuario no encontrado.");
+  }
+});
+
 router.delete("/:id", async (req: Request, res: Response) => {
   const usuario = await usuariosServicio.obtenerUsuarioPorId(
     parseInt(req.params.id)

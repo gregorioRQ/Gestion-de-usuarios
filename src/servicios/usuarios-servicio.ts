@@ -20,6 +20,13 @@ async function actualizarUsuario(
   return usuarioRepositorio.actualizarUsuario(id, usuario);
 }
 
+async function actualizarUsuariopParcial(
+  id: number,
+  usuario: Partial<UsuarioAtributos>
+): Promise<boolean> {
+  return usuarioRepositorio.actualizarUsuarioParcial(id, usuario);
+}
+
 async function eliminarUsuario(id: number): Promise<boolean> {
   return usuarioRepositorio.eliminarUsuario(id);
 }
@@ -28,5 +35,6 @@ export default {
   obtenerUsuarios,
   obtenerUsuarioPorId,
   actualizarUsuario,
+  actualizarUsuariopParcial,
   eliminarUsuario,
 };

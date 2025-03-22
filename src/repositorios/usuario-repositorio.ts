@@ -23,6 +23,17 @@ async function actualizarUsuario(
   });
   return filasActualizadas > 0;
 }
+
+async function actualizarUsuarioParcial(
+  id: number,
+  usuario: Partial<UsuarioAtributos>
+): Promise<boolean> {
+  const [filasActualizadas] = await Usuario.update(usuario, {
+    where: { id },
+  });
+  return filasActualizadas > 0;
+}
+
 async function eliminarUsuario(id: number): Promise<boolean> {
   const filasEliminadas = await Usuario.destroy({
     where: { id },
@@ -35,5 +46,6 @@ export default {
   obtenerUsuarioPorId,
   obtenerUsuarios,
   actualizarUsuario,
+  actualizarUsuarioParcial,
   eliminarUsuario,
 };

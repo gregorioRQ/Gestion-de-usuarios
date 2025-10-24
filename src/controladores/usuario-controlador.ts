@@ -1,12 +1,16 @@
-import express, { Request, Response } from "express";
+import express, { NextFunction, Request, Response } from "express";
 import usuariosServicio from "../servicios/usuarios-servicio";
 import UsuarioAtributos from "../modelos/usuario-modelo";
 
 
-export const crearUsuario = async (req: Request, res: Response) => {
-  
-  const id: number = await usuariosServicio.crearUsuario(req.body);
+export const crearUsuario = async (req: Request, res: Response, next: NextFunction) => {
+  try{
+    const id: number = await usuariosServicio.crearUsuario(req.body);
   res.status(201).json({ id });
+  }catch(error){
+    next(error);
+  }
+  
 };
 
 export const obtenerUsuarios = async (req: Request, res: Response) => {

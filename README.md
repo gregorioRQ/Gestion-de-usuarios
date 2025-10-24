@@ -1,6 +1,6 @@
-# API de Usuarios con Node.js, TypeScript y MySql
+# API de Usuarios
 
-Api básica que implementa un crud para gestionar usuarios.
+Api REST que gestiona usuarios.
 
 ## Instalación:
 
@@ -17,8 +17,12 @@ Api básica que implementa un crud para gestionar usuarios.
 - `PUT /usuarios/:id`: Actualiza un usuario.
 - `DELETE /usuarios/:id`: Elimina un usuario.
 
-## Dependencias
-
-    * `express`
-    * `mysql2`
-    * `sequelize`
+## Tecnologías 
+- JavaScript 
+- Nodejs (22.14.0)
+- MySQL (Base de datos)
+- TypeScript
+- Swagger (Documentación)
+- Jest (Tests)
+- Sequeelize (ORM)
+- Express 

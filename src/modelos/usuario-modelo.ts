@@ -8,7 +8,7 @@
 
 import { Sequelize, DataTypes, Model } from "sequelize";
 
-const sequelize = new Sequelize("api_usuarios", "root", "123456789", {
+const sequelize = new Sequelize("db_usuarios", "root", "123456789", {
   host: "localhost",
   dialect: "mysql",
 });
@@ -46,6 +46,7 @@ Usuario.init(
   {
     sequelize,
     tableName: "Usuarios",
+    timestamps: false
   }
 );
 

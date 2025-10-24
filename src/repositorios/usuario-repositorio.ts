@@ -6,6 +6,10 @@ async function crearUsuario(usuario: UsuarioAtributos): Promise<number> {
   return newUsuario.id!;
 }
 
+async function obtenerUsuarioPorEmail(email: string): Promise<Usuario | null>{
+  return Usuario.findOne({ where: { email } });
+}
+
 async function obtenerUsuarios(): Promise<Usuario[]> {
   return Usuario.findAll();
 }
@@ -48,4 +52,5 @@ export default {
   actualizarUsuario,
   actualizarUsuarioParcial,
   eliminarUsuario,
+  obtenerUsuarioPorEmail
 };

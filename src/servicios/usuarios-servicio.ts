@@ -1,8 +1,20 @@
 import usuarioRepositorio from "../repositorios/usuario-repositorio";
 import UsuarioAtributos from "../modelos/usuario-modelo";
+import Usuario from "../modelos/usuario-modelo";
 
 async function crearUsuario(usuario: UsuarioAtributos): Promise<number> {
+  if(await usuarioRepositorio.obtenerUsuarioPorEmail(usuario.email)) {
+    throw new Error("El email ya está en uso");
+  }
   return usuarioRepositorio.crearUsuario(usuario);
+}
+
+async function obtenerUsuarioPorEmail(email: string): Promise<Usuario>{
+  const usuario = await usuarioRepositorio.obtenerUsuarioPorEmail(email);
+  if(!usuario) {
+    throw new Error("Usuario no encontrado");
+  }
+  return usuario;
 }
 
 async function obtenerUsuarios(): Promise<any> {

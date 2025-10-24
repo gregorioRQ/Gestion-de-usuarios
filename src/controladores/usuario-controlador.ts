@@ -1,20 +1,20 @@
-import express, { Request, Response, Router } from "express";
+import express, { Request, Response } from "express";
 import usuariosServicio from "../servicios/usuarios-servicio";
 import UsuarioAtributos from "../modelos/usuario-modelo";
 
-const router: Router = express.Router();
 
-router.post("/", async (req: Request, res: Response) => {
+export const crearUsuario = async (req: Request, res: Response) => {
+  
   const id: number = await usuariosServicio.crearUsuario(req.body);
   res.status(201).json({ id });
-});
+};
 
-router.get("/", async (req: Request, res: Response) => {
+export const obtenerUsuarios = async (req: Request, res: Response) => {
   const usuarios: UsuarioAtributos[] = await usuariosServicio.obtenerUsuarios();
   res.json(usuarios);
-});
+};
 
-router.get("/:id", async (req: Request, res: Response) => {
+export const obtenerUsuarioPorId = async (req: Request, res: Response) => {
   const usuario = await usuariosServicio.obtenerUsuarioPorId(
     parseInt(req.params.id)
   );
@@ -23,9 +23,9 @@ router.get("/:id", async (req: Request, res: Response) => {
   } else {
     res.status(404).send("Usuario no encotrado");
   }
-});
+};
 
-router.put("/:id", async (req: Request, res: Response) => {
+export const actualizarUsuario = async (req: Request, res: Response) => {
   const actualizado: boolean = await usuariosServicio.actualizarUsuario(
     parseInt(req.params.id),
     req.body
@@ -35,9 +35,9 @@ router.put("/:id", async (req: Request, res: Response) => {
   } else {
     res.send("Usuario no encontrado");
   }
-});
+};
 
-router.patch("/id:", async (req: Request, res: Response) => {
+export const actualizarUsuariopParcial = async (req: Request, res: Response) => {
   const actualizadoParcial: boolean =
     await usuariosServicio.actualizarUsuariopParcial(
       parseInt(req.params.id),
@@ -48,9 +48,9 @@ router.patch("/id:", async (req: Request, res: Response) => {
   } else {
     res.status(404).send("Usuario no encontrado.");
   }
-});
+};
 
-router.delete("/:id", async (req: Request, res: Response) => {
+export const eliminarUsuario = async (req: Request, res: Response) => {
   const usuario = await usuariosServicio.obtenerUsuarioPorId(
     parseInt(req.params.id)
   );
@@ -60,6 +60,5 @@ router.delete("/:id", async (req: Request, res: Response) => {
   } else {
     res.status(404).send("Usuario no encotrado");
   }
-});
+};
 
-export default router;

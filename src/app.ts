@@ -1,22 +1,27 @@
-/**
- * punto de entrada de la app.
- * configura express y define la ruta principal
- */
 
 import express, { Application, Request, Response } from "express";
-import usuarioControlador from "./controladores/usuario-controlador";
+
+import swaggerUi from "swagger-ui-express";
+import swaggerSpec from "./config/swagger";
+
+import generalRoutes from "./router/general.routes";
+import usuarioRoutes from  "./router/usuarios.routes";
 
 const app: Application = express();
-const port: number = 3000;
-
-app.get("/", (req: Request, res: Response) => {
-  res.send("Bienvenido a la Api de gestion de usuarios.");
-});
+const PORT = process.env.PORT || 4090;
 
 app.use(express.json());
+app.use(generalRoutes);
+app.use("/usuarios",usuarioRoutes);
 
-app.use("/usuarios", usuarioControlador);
+// Configuración de Swagger
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-app.listen(port, () => {
-  console.log(`SERVIDOR ESCUCHANDO EN http://localhost:${port}`);
+
+// Iniciar servidor
+app.listen(PORT, () => {
+  console.log(`Servidor corriendo en http://localhost:${PORT}`);
+  console.log(`Documentación Swagger disponible en http://localhost:${PORT}/api-docs`);
 });
+
+module.exports = app;

@@ -5,6 +5,9 @@ import UsuarioAtributos from "../modelos/usuario-modelo";
 
 export const crearUsuario = async (req: Request, res: Response, next: NextFunction) => {
   try{
+    if(!req.body){
+      throw new Error("Cuerpo de la solicitud vacío");
+    }
     const id: number = await usuariosServicio.crearUsuario(req.body);
   res.status(201).json({ id });
   }catch(error){
@@ -19,6 +22,11 @@ export const obtenerUsuarios = async (req: Request, res: Response) => {
 };
 
 export const obtenerUsuarioPorId = async (req: Request, res: Response) => {
+  if(req.params.id === undefined || isNaN(parseInt(req.params.id))) {
+    res.status(400).send("ID inválido");
+    return;
+  }
+
   const usuario = await usuariosServicio.obtenerUsuarioPorId(
     parseInt(req.params.id)
   );
@@ -30,6 +38,16 @@ export const obtenerUsuarioPorId = async (req: Request, res: Response) => {
 };
 
 export const actualizarUsuario = async (req: Request, res: Response, next: NextFunction) => {
+
+  if(req.params.id === undefined || isNaN(parseInt(req.params.id))) {
+    res.status(400).send("ID inválido");
+    return;
+  }
+  if(!req.body){
+    res.status(400).send("Usuario inválido");
+    return;
+  }
+
   const actualizado: boolean = await usuariosServicio.actualizarUsuario(
     parseInt(req.params.id),
     req.body
@@ -55,6 +73,10 @@ export const actualizarUsuariopParcial = async (req: Request, res: Response) => 
 };
 
 export const eliminarUsuario = async (req: Request, res: Response) => {
+  if(req.params.id === undefined || isNaN(parseInt(req.params.id))) {
+    res.status(400).send("ID inválido");
+    return;
+  }
   const usuario = await usuariosServicio.obtenerUsuarioPorId(
     parseInt(req.params.id)
   );

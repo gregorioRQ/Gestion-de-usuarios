@@ -22,6 +22,9 @@ async function obtenerUsuarios(): Promise<any> {
 }
 
 async function obtenerUsuarioPorId(id: number): Promise<any> {
+  if(typeof id !== 'number' || isNaN(id) || id <= 0 || !Number.isInteger(id)) {
+  throw new Error("ID inválido");
+}
   return usuarioRepositorio.obtenerUsuarioPorId(id);
 }
 
@@ -29,6 +32,13 @@ async function actualizarUsuario(
   id: number,
   usuario: UsuarioAtributos
 ): Promise<boolean> {
+
+  if(typeof id !== 'number' || isNaN(id) || id <= 0 || !Number.isInteger(id)) {
+  throw new Error("ID inválido");
+}
+  if(!usuario || typeof usuario !== 'object') {
+  throw new Error("Usuario inválido");
+}
   return usuarioRepositorio.actualizarUsuario(id, usuario);
 }
 
@@ -40,6 +50,9 @@ async function actualizarUsuariopParcial(
 }
 
 async function eliminarUsuario(id: number): Promise<boolean> {
+  if(typeof id !== 'number' || isNaN(id) || id <= 0 || !Number.isInteger(id)) {
+  throw new Error("ID inválido");
+}
   return usuarioRepositorio.eliminarUsuario(id);
 }
 export default {

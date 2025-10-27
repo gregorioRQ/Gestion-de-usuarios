@@ -29,7 +29,7 @@ export const obtenerUsuarioPorId = async (req: Request, res: Response) => {
   }
 };
 
-export const actualizarUsuario = async (req: Request, res: Response) => {
+export const actualizarUsuario = async (req: Request, res: Response, next: NextFunction) => {
   const actualizado: boolean = await usuariosServicio.actualizarUsuario(
     parseInt(req.params.id),
     req.body

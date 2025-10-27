@@ -14,7 +14,7 @@ const router = Router();
 router.get('/', usuariosController.obtenerUsuarios);
 router.get('/:id', usuariosController.obtenerUsuarioPorId);
 router.post('/',validarCrearUsuario, usuariosController.crearUsuario);
-router.put('/:id', usuariosController.actualizarUsuario);
+router.put('/:id',validarCrearUsuario, usuariosController.actualizarUsuario);
 router.delete('/:id', usuariosController.eliminarUsuario);
 
 export default router;

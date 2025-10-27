@@ -13,6 +13,16 @@ export const manejoErrores = (
     return;
   }
 
+  if(error.message === 'ID inválido') {
+    res.status(400).json({ error: error.message });
+    return;
+  }
+
+  if(error.message === "Usuario inválido") {
+    res.status(400).json({ error: error.message });
+    return;
+  }
+
   // Error genérico
   res.status(500).json({ 
     error: 'Error interno del servidor' 

@@ -209,4 +209,19 @@ describe('Middleware - manejoErrores', () => {
       expect(mockResponse.status).toHaveBeenCalledWith(409);
     });
   });
+
+  describe('Edge case - Error de usuario inválido', () => {
+    it('debería retornar 400 cuando el usuario es inválido', () => {
+      const error = new Error('Usuario inválido');
+      manejoErrores(
+        error,
+        mockRequest as Request,
+        mockResponse as Response,
+        mockNext
+      );
+
+      expect(mockResponse.status).toHaveBeenCalledWith(400);
+      expect(mockResponse.json).toHaveBeenCalledWith({ error: 'Usuario inválido' });
+    });
+  });
 });
